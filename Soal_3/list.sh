@@ -31,3 +31,5 @@ do
 mv pdkt_kusuma_$a ./kenangan/kenangan_$a > /dev/null 2>&1
 done
 
+cat wget.log >> wget.log.bak
+rm wget.log
