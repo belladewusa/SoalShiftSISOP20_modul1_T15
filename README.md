@@ -18,5 +18,6 @@ Whits adalah seorang mahasiswa teknik informatika. Dia mendapatkan tugas praktik
 Whits memohon kepada kalian yang sudah jago mengolah data untuk mengerjakan laporan tersebut.
 
 **Pembahasan soal 1**
+File untuk penyelesaian soal ini ada disini : [Soal1](https://github.com/)
 
 
