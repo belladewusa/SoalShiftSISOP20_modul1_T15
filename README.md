@@ -18,6 +18,13 @@ Whits adalah seorang mahasiswa teknik informatika. Dia mendapatkan tugas praktik
 Whits memohon kepada kalian yang sudah jago mengolah data untuk mengerjakan laporan tersebut.
 
 **Pembahasan soal 1**
-File untuk penyelesaian soal ini ada disini : [Soal1](https://github.com/)
+File untuk penyelesaian soal ini ada disini : [Soal1](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_1)
+***1.a*** untuk melakukan penyortiran kami menggunakan command `awk`
+```bash
+awk -F "," '$13~/Central/{jumlah+=$NF}END{print "Central "jumlah}' Sample-Superstore.csv
+awk -F "," '$13~/South/{jumlah+=$NF}END{print "South "jumlah}' Sample-Superstore.csv
+awk -F "," '$13~/East/{jumlah+=$NF}END{print "East "jumlah}' Sample-Superstore.csv
+awk -F "," '$13~/West/{jumlah+=$NF}END{print "West "jumlah}' Sample-Superstore.csv
+```
 
 
