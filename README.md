@@ -100,12 +100,6 @@ echo "$random" >> $nama.txt
 * `head -n 1` digunakan untuk mengambil baris pertama dari 28 karakter yang dibuat per baris sebelumnya, kemudian dimasukkan nilainya ke variabel `random`
 * kemudian kita inputkan nama file txt yang ingin kita buat, yang nanti akan dimasukkan 28 karakter random dari variabel `random` tadi dengan syarat inputan `tr -dc A-Za-z` yang artinya hanya alphabet
 
-**Screen Shoot**
-![Running nomor 2a](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/soal1a.PNG)
-Running bash
-![Running nomor 2Aa](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/soal1a_2.PNG)
-Output
-
 ***2c*** untuk melakukan enkripsi pada nama file .txt kami mengggunakan syntax berikut.
 ```
 #!/bin/bash
@@ -130,12 +124,6 @@ done
 * Setelah itu buat variabel judul_baru untuk melakukan enkripsi terhadap variabel judul_1 (basename variabel judul) dengan menggunakan command `caesar` atau `rot13` dengan argumen variabel hour. Lalu ubah judul file lama (variabel judul) menjadi judul baru (variabel judul_baru) dengan command `mv $judul $judul_baru.txt`. 
 * Jangan lupa untuk menambahkan .txt saat akan mengubah nama file.
 
-**Screen Shoot**
-![Running nomor 2a](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/soal1a.PNG)
-Running bash
-
-
-
 ***2d***  dekripsi untuk nama file txt bisa menggunakan syntax ini
 ```
 #!/bin/bash
@@ -158,6 +146,8 @@ done
 * Variabel `create_new_time` tersebut berisi `expr 26 - $hour` yang bernilai sisa dari pengurangan alpabet (26 karakter alpabet) dengan creation time yang telah ditemukan (jam). 
 * Hasil dari variabel tersebut akan digunakan untuk mendekripsi kembali file yang telah dienkripsi. Karena jumlah karakter alpabet ada sebanyak 26 maka ketika variabel  `create_new_time` digunakan sebagai argumen command `caesar` maka akan sama dengan mengenkripsi suatu file kembali ke awal (total pertambahan indeks huruf sebanyak 26 - $hour + $hour atau kembali seperti semula) 
 
+**Screen Shoot**
+![Running nomor 2](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal2.png)
 
 
 ### Soal 3 
