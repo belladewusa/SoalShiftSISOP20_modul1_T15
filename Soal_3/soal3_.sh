@@ -15,3 +15,5 @@ wget -a wget.log -O pdkt_kusuma_$i "https://loremflickr.com/320/240/cat"
 done
 
 grep "Location" wget.log >> location.log
+
+#crontab --> 5 6/8 * * 0-5 bash /home/user/file_name
