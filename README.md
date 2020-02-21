@@ -72,6 +72,6 @@ awk -F "," '$11~/Illinois/{product[$17]+=$NF}END{for(name in product)print produ
 
 **Screen Shoot**\
 **Contoh Output:**\
-
+![Running nomor 1](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/nomor1.png)
 
 
