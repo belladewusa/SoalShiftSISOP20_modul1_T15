@@ -16,4 +16,4 @@ done
 
 grep "Location" wget.log >> location.log
 
-#crontab --> 5 6/8 * * 0-5 bash /home/user/file_name
+#crontab --> 5 6/8 * * 0-5 /bin/bash /home/user/file_name
