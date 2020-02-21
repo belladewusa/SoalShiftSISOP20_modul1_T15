@@ -173,6 +173,110 @@ itu, kalian mencoba membuat script untuk mendownload 28 gambar dari "https://lor
 dengan format filename "duplicate_nomor" (contoh : duplicate_200, duplicate_201). Setelah itu lakukan pemindahan semua gambar yang tersisa kedalam folder ./kenangan dengan format filename "kenangan_nomor" (contoh: kenangan_252, kenangan_253). Setelah tidak ada gambar di current directory, maka lakukan backup seluruh log menjadi ekstensi ".log.bak".
 
 **Pembahasan soal 3**
+File untuk penyelesaian soal ini ada disini : [Soal3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_3)
+***a.*** Untuk menyelesaikan case ini kami menggunakan syntax ini
+```
+#!/bin/bash
+jumlah_file=`ls | grep "pdkt_kusuma" | cut -d "_" -f 3 | sort -n | tail -1`
+
+if [[ $jumlah_file =~ [:digit:] ]]
+then
+	$jumlah_file = 0
+fi
+
+x=`expr $jumlah_file + 1`
+y=`expr $jumlah_file + 28`
+
+for((i=x;i<=y;i++))
+do
+wget -a wget.log -O pdkt_kusuma_$i "https://loremflickr.com/320/240/cat"
+done
+
+grep "Location" wget.log >> location.log
+```
+buat untuk mencari jumlah file yang telah ada dengan melakukan grep pada file name "pdkt_kusuma" yang ada di list (ls) kemudian delimiter "_" dihilangkan dan hanya mencetak nilai yang ada pada field ke-3. Setelah dilakukan cut maka akan didapatkan value berupa angka yang sebelum di cut berada pada field ke3 pada nama file. Hasil yang berupa angka tersebut disortir dari terkecil hingga terbesar dan kemudian dicetak (output) hasil terakhirnya saja (tail -1). Hasil dari sortir tersebut menunjukkan jumlah file pdkt_kusuma_nomor yang telah ada atau telah didownload sebelumnya
+
+* Pada bagian
+```
+if [[ $jumlah_file =~ [:digit:] ]]
+then
+	$jumlah_file = 0
+fi
+```
+setelah didapatkan nilai dari variabel jumlah_file maka akan dicek apakah variabel jumlah file tersebut memenuhi syarat if..else. Jika variabel jumlah_file tidak mengandung digit maka variabel jumlah_file tersebut bernilai 0.
+
+*Pada bagian
+
+```
+x=`expr $jumlah_file + 1`
+y=`expr $jumlah_file + 28`
+
+for((i=x;i<=y;i++))
+do
+wget -a wget.log -O pdkt_kusuma_$i "https://loremflickr.com/320/240/cat"
+done
+```
+dibuat variabel x dan y dengan menambahkan nilai 1 pada variabel x dan menambahkan nilai 28 pada variabel y. Artinya yaitu ketika file pdkt_kusuma_nomor teridentifikasi maka jumlah file pdkt_kusuma_nomor tersebut akan ditambah 1 hingga 28 (jika latest file pdkt_kusuma_28 maka file yang akan didownload berikutnya yaitu pdkt_kusuma_29 hingga pdkt_kusuma_56).
+
+*Pada bagian
+`grep "Location" wget.log >> location.log`
+dicetak semua baris yang mengandung kata Location pada file wget.log kemudian output dari grep "Location" tersebut ditambahkan ke file location.log jika file belum ada maka file location.log akan dibuat.
+
+***b.*** code crontab yang digunakan yaitu:
+`5 6/8 * * 0-5 /bin/bash /home/<user>/file_name.sh`
+
+*file file_name.sh akan dijalankan pada jam 6:05 setiap 8 jam sekali dari hari minggu hingga hari jumat. Karena crontab hanya dapat melakukan kegiatan atau perintah absolut maka digunakan `/bin/bash` untuk menjalankan `file file_name.sh `
+
+***c.*** syintax yang digunakan 
+```
+jumlah_file=`ls | grep "pdkt_kusuma" | cut -d "_" -f 3 | sort -n | tail -1`
+
+if [[ `ls | grep "kenangan"` != "kenangan" ]]
+then 
+	mkdir ./kenangan
+fi
+
+if [[ `ls | grep "duplicate"` != "duplicate" ]]
+then
+	mkdir ./duplicate
+fi
+
+for((i=1;i<=jumlah_file;i++)) 
+do
+	for((j=1;j<=jumlah_file;j++))
+	do 
+	gambar_i=`cksum pdkt_kusuma_$i pdkt_kusuma_$j | awk '{if(NR==1)print $1}'`
+	echo $gambar_i 
+	gambar_j=`cksum pdkt_kusuma_$i pdkt_kusuma_$j | awk '{if(NR==2)print $1}'`
+	echo $gambar_j
+	if [[ $i -ne $j && $gambar_i == $gambar_j ]]
+	then
+		mv pdkt_kusuma_$j ./duplicate/duplicate_$j > /dev/null 2>&1
+	fi
+	done 
+done
+
+for((a=1;a<=jumlah_file;a++))
+do
+mv pdkt_kusuma_$a ./kenangan/kenangan_$a > /dev/null 2>&1
+done
+
+cat wget.log >> wget.log.bak
+rm wget.log
+
+```
+* Dengan variabel jumlah_file maka akan diperoleh jumlah file `pdkt_kusuma_nomor` yang ada pada directory saat ini. 
+* Kemudian dengan `grep "kenangan"` maka akan diperiksa apakah directory ` ./kenangan` sudah dibeuat atau tidak. Jika tidak ada nama file "kenangan" maka akan dibentuk directory ./kenangan. Begitu juga dengan directory ./duplicate.
+* Kemudian dengan nested loop maka byte size setiap file akan diperiksa satu per satu. jika nomor dari file yang dicek berbeda dan nilai byte sizenya sama (terdeteksi identik) maka gambar dengan nama ` pdkt_kusuma_nomor ` akan dipindahkan ke directory ./duplicate dan diganti namanya menjadi duplicate_nomor.
+Setelah file yang identik dipindahkan maka sisa dari file gambar tersebut akan dipindahkan ke directory ./kenangan dan diganti namanya menjadi kenangan_nomor.
+
+* Pada bagian
+```
+cat wget.log >> wget.log.bak
+rm wget.log
+```
+akan dipindahkan isi dari file `wget.log` ke file `wget.log.bak` dan kemudian file `wget.log` akan dihapus.
+
 
 
 
