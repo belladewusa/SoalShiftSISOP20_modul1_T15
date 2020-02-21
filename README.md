@@ -73,11 +73,33 @@ awk -F "," '$11~/Illinois/{product[$17]+=$NF}END{for(name in product)print produ
 **Screen Shoot**\
 ![Running nomor 1](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/nomor1.png)
 
-### Soal 2\
+### Soal 2
 Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilangan data-data penting. Untuk mencegah kejadian yang sama terulang kembali mereka meminta bantuan kepada Whits karena dia adalah seorang yang punya banyak ide. Whits memikirkan sebuah ide namun dia meminta bantuan kalian kembali agar ide tersebut cepat diselesaikan. Idenya adalah kalian\
 ***a.*** membuat sebuah script bash yang dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf besar, huruf kecil, dan angka.\
 ***b.*** Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argumen yang diinputkan dan **HANYA berupa alphabet.**\
 ***c***  Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan dienkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah dengan (misal:password.txt dibuat pada jam 01.28 maka namanya berubah menjadi qbttxpse.txt dengan perintah ‘bash soal2_enkripsi.sh password.txt’. Karena p adalah huruf ke 16 dan file dibuat pada jam 1 maka 16+1=17 dan huruf ke 17 adalah q dan begitu pula seterusnya. Apabila melebihi z, akan kembali ke a, contoh: huruf w dengan jam 5.28, maka akan menjadi huruf b.) dan (d) jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.\
+
+**Pembahasan soal 2**
+File untuk penyelesaian soal ini ada disini : [Soal2](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_2)\
+
+***2a.*** Untuk membuat password random sebanyak 28 karakter, kami menggunakan syntax sebagai berikut\
+```
+#!/bin/bash
+random=`< /dev/urandom tr -dc A-Za-z0-9 | fold -w 28 | head -n 1`
+echo "Input nama file"
+read name
+nama=`echo "$name" | tr -dc A-Za-z`
+echo "$random" >> $nama.txt 
+```
+
+* pertama kita menggunakan ``` random=`< /dev/urandom tr -dc A-Za-z0-9 | fold -w 28 | head -n 1` ``` untuk melakukan randomisasi karakter dan angka secara terus-menerus. `tr -dc A-Za-z0-9` berfungsi untuk menghapus inputan selain `A-Za-z0-9`.
+* `fold -w 28` berfungsi untuk memberikan bari baru setelah 28 karakter
+* `head -n 1` digunakan untuk mengambil baris pertama dari 28 karakter yang dibuat per baris sebelumnya, kemudian dimasukkan nilainya ke variabel `random`
+* kemudian kita inputkan nama file txt yang ingin kita buat, yang nanti akan dimasukkan 28 karakter random dari variabel `random` tadi
+
+
+
+
 
 
 
