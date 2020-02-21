@@ -52,7 +52,7 @@ awk -F "," '$11~/Illinois/{product[$17]+=$NF}END{for(name in product)print produ
 * Kemudian `awk -F "," '$13~/West/{jumlah+=$NF}END{print "West "jumlah}' Sample-Superstore.csv`. syntax berfungsi melakukan penyortiran di kolom `$13` semua yang mengandung kata `West`, kemudian `{jumlah+=$NF}END{print "West "jumlah` berfungsi menambahkan `jumlah` disemua baris West dengan file dibaris terakhir dan akan terus bertambah sampai selesai. lalu akan mencetak West dan hasil dari `jumlah` akhir.
 
 ***Soal 1b***
-* untuk menampilkan 2 negara bagian yang memiliki keuntungan (profit) yang paling sedikit dari syntax sebelumnya bisa menggunakan syntax berikut.\
+* untuk menampilkan 2 negara bagian yang memiliki keuntungan (profit) yang paling sedikit dari syntax sebelumnya bisa menggunakan syntax berikut.
 `awk -F "," '$13~/Central/{state[$11]+=$NF}END{for(negara in state)print negara, state[negara]}' Sample-Superstore.csv | sort -nk2 `
 pada bagian ini kita akan melakukan sortir pada kolom `$13` dengan Semua baris Central sama seperti penyelesaian pada 1a,semua baris yang ada Central dan setiap state yang ada dibaris tersebut dimasukkan kedalam variabel array state. Kemudian dicetak dan disortir menggunakan `sort -nk2` dengan tujuan menyortir integer value di kolom 2
 
@@ -83,7 +83,7 @@ Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilan
 ***d*** jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.
 
 **Pembahasan soal 2**
-File untuk penyelesaian soal ini ada disini : [Soal2](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_2)\
+File untuk penyelesaian soal ini ada disini : [Soal2](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_2)
 
 ***2ab*** kami menggabungkan penyelesaian untuk soal 2a dan 2b. Untuk membuat password random sebanyak 28 karakter, kami menggunakan syntax sebagai berikut
 ```
@@ -267,6 +267,15 @@ rm wget.log
 ```
 akan dipindahkan isi dari file `wget.log` ke file `wget.log.bak` dan kemudian file `wget.log` akan dihapus.
 
+**Screen Shoot**
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(1).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(2).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(3).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(4).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(5).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(6).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(7).png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/unamed.png)
 
 
 
