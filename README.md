@@ -19,7 +19,7 @@ Whits memohon kepada kalian yang sudah jago mengolah data untuk mengerjakan lapo
 
 **Pembahasan soal 1**
 File untuk penyelesaian soal ini ada disini : [Soal1](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_1)\
-kami menggabungkan penyelesaian soal 1a, 1b, 1c dalam satu program\
+kami menggabungkan penyelesaian soal 1a, 1b, 1c dalam satu program
 
 untuk melakukan penyortiran kami menggunakan command `awk`
 ```#!/bin/bash
