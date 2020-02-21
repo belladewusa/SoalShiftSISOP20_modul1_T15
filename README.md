@@ -79,12 +79,13 @@ Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilan
 
 ***b.*** Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argumen yang diinputkan dan **HANYA berupa alphabet.**\
 
-***c***  Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan dienkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah dengan (misal:password.txt dibuat pada jam 01.28 maka namanya berubah menjadi qbttxpse.txt dengan perintah ‘bash soal2_enkripsi.sh password.txt’. Karena p adalah huruf ke 16 dan file dibuat pada jam 1 maka 16+1=17 dan huruf ke 17 adalah q dan begitu pula seterusnya. Apabila melebihi z, akan kembali ke a, contoh: huruf w dengan jam 5.28, maka akan menjadi huruf b.) dan (d) jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.\
+***c***  Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan dienkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah dengan (misal:password.txt dibuat pada jam 01.28 maka namanya berubah menjadi qbttxpse.txt dengan perintah ‘bash soal2_enkripsi.sh password.txt’. Karena p adalah huruf ke 16 dan file dibuat pada jam 1 maka 16+1=17 dan huruf ke 17 adalah q dan begitu pula seterusnya. Apabila melebihi z, akan kembali ke a, contoh: huruf w dengan jam 5.28, maka akan menjadi huruf b.) 
+***d*** jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.
 
 **Pembahasan soal 2**
 File untuk penyelesaian soal ini ada disini : [Soal2](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/tree/master/Soal_2)\
 
-***2a.*** Untuk membuat password random sebanyak 28 karakter, kami menggunakan syntax sebagai berikut
+***2ab*** kami menggabungkan penyelesaian untuk soal 2a dan 2b. Untuk membuat password random sebanyak 28 karakter, kami menggunakan syntax sebagai berikut
 ```
 #!/bin/bash
 random=`< /dev/urandom tr -dc A-Za-z0-9 | fold -w 28 | head -n 1`
@@ -97,12 +98,58 @@ echo "$random" >> $nama.txt
 * pertama kita menggunakan ``` random=`< /dev/urandom tr -dc A-Za-z0-9 | fold -w 28 | head -n 1` ``` untuk melakukan randomisasi karakter dan angka secara terus-menerus. `tr -dc A-Za-z0-9` berfungsi untuk menghapus inputan selain `A-Za-z0-9`.
 * `fold -w 28` berfungsi untuk memberikan bari baru setelah 28 karakter
 * `head -n 1` digunakan untuk mengambil baris pertama dari 28 karakter yang dibuat per baris sebelumnya, kemudian dimasukkan nilainya ke variabel `random`
-* kemudian kita inputkan nama file txt yang ingin kita buat, yang nanti akan dimasukkan 28 karakter random dari variabel `random` tadi
+* kemudian kita inputkan nama file txt yang ingin kita buat, yang nanti akan dimasukkan 28 karakter random dari variabel `random` tadi dengan syarat inputan `tr -dc A-Za-z` yang artinya hanya alphabet
 
 **Screen Shoot**
 ![Running nomor 2a](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/)
 
-***2a.***
+***2c*** untuk melakukan enkripsi pada nama file .txt kami mengggunakan syntax berikut.
+```
+#!/bin/bash
+
+for judul in $*
+do
+judul_1=`basename $judul .txt`
+
+status=`ls -i $judul | awk '{print $1}'`
+crtime=`sudo debugfs -R 'stat <'"$status"'>' /dev/sda8 | awk '{if(NR==10)print $7}' | tr -d ':'`
+hour=`expr $crtime / 10000`
+
+judul_baru=`echo  $judul_1 | caesar $hour`
+mv $judul $judul_baru.txt
+done
+```
+
+* Input judul file yang telah dibuat, kemudian buat variabel judul_1 untuk mengambil nama file tanpa ekstensi file. 
+* Kemudian buat variabel status untuk mendapatkan indeks number dari setiap file. Kemudian gunakan `debugfs` untuk melihat creation time dari file tersebut. Gunakan `sudo` agar mendapat hak akses untuk melihat creation time file tersebut. Untuk melihat partisi sistem maka gunakan command `df -h` . 
+* Setelah itu gunakan command awk untuk mendapatkan waktu dengan format hh:mm:ss (jam:menit:sekon), kemudian gunakan `tr -d` untuk menghilangkan karakter ':' dari waktu yang telah diperoleh. 
+* Output dari variabel `crtime` berupa hhmmss (jammenitsekon) berjumlah 6 digit. Untuk mendapatkan nilai variabel `crtime` dengan format hh (jam) saja maka variabel crtime tersebut dibagi dengan 10000 agar nilai yang tersisa hanya 2 digit terdepan saja (maka variabel hour diperoleh).
+* Setelah itu buat variabel judul_baru untuk melakukan enkripsi terhadap variabel judul_1 (basename variabel judul) dengan menggunakan command `caesar` atau `rot13` dengan argumen variabel hour. Lalu ubah judul file lama (variabel judul) menjadi judul baru (variabel judul_baru) dengan command `mv $judul $judul_baru.txt`. 
+* Jangan lupa untuk menambahkan .txt saat akan mengubah nama file.
+
+
+***2d***  dekripsi untuk nama file txt bisa menggunakan syntax ini
+```
+#!/bin/bash
+
+for judul in $*
+do
+judul_1=`basename $judul .txt`
+
+status=`ls -i $judul | awk '{print $1}'`
+crtime=`sudo debugfs -R 'stat <'"$status"'>' /dev/sda8 | awk '{if(NR==10)print $7}' | tr -d ':'`
+hour=`expr $crtime / 10000`
+create_new_time=`expr 26 - $hour`
+
+judul_baru=`echo  $judul_1 |caesar $create_new_time`
+mv $judul $judul_baru.txt
+done
+```
+
+* Sama dengan soal nomor 2.c akan tetapi ada variabel baru yang digunakan yaitu `create_new_time` yang berfungsi sebagai argumen yang akan digunakan pada command caesar. 
+* Variabel `create_new_time` tersebut berisi `expr 26 - $hour` yang bernilai sisa dari pengurangan alpabet (26 karakter alpabet) dengan creation time yang telah ditemukan (jam). 
+* Hasil dari variabel tersebut akan digunakan untuk mendekripsi kembali file yang telah dienkripsi. Karena jumlah karakter alpabet ada sebanyak 26 maka ketika variabel  `create_new_time` digunakan sebagai argumen command `caesar` maka akan sama dengan mengenkripsi suatu file kembali ke awal (total pertambahan indeks huruf sebanyak 26 - $hour + $hour atau kembali seperti semula) 
+
 
 
 
