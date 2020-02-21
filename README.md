@@ -274,8 +274,7 @@ akan dipindahkan isi dari file `wget.log` ke file `wget.log.bak` dan kemudian fi
 ![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(4).png)
 ![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(5).png)
 ![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(6).png)
-![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/Soal3(7).png)
-![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/unamed.png)
+![Running nomor 3](https://github.com/anggadaputra11319/SoalShiftSISOP20_modul1_T15/blob/master/ss/unnamed.png)
 
 
 
