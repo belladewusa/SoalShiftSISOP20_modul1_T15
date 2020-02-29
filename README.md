@@ -89,16 +89,18 @@ File untuk penyelesaian soal ini ada disini : [Soal2](https://github.com/anggada
 ```
 #!/bin/bash
 random=`< /dev/urandom tr -dc A-Za-z0-9 | fold -w 28 | head -n 1`
-echo "Input nama file"
-read name
+for name in $*
+do
 nama=`echo "$name" | tr -dc A-Za-z`
 echo "$random" >> $nama.txt 
+done
+
 ```
 
 * pertama kita menggunakan ``` random=`< /dev/urandom tr -dc A-Za-z0-9 | fold -w 28 | head -n 1` ``` untuk melakukan randomisasi karakter dan angka secara terus-menerus. `tr -dc A-Za-z0-9` berfungsi untuk menghapus inputan selain `A-Za-z0-9`.
 * `fold -w 28` berfungsi untuk memberikan bari baru setelah 28 karakter
 * `head -n 1` digunakan untuk mengambil baris pertama dari 28 karakter yang dibuat per baris sebelumnya, kemudian dimasukkan nilainya ke variabel `random`
-* kemudian kita inputkan nama file txt yang ingin kita buat, yang nanti akan dimasukkan 28 karakter random dari variabel `random` tadi dengan syarat inputan `tr -dc A-Za-z` yang artinya hanya alphabet
+* kemudian inputkan nama file yang ingin kita buat, yang nanti akan dimasukkan 28 karakter random dari variabel `random` tadi dengan syarat inputan `tr -dc A-Za-z` yang artinya hanya alphabet
 
 ***2c*** untuk melakukan enkripsi pada nama file .txt kami mengggunakan syntax berikut.
 ```
